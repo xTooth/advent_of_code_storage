@@ -5,7 +5,7 @@ def get_totals_list(lines):
     calories = []
     temp_calories = 0
     for line in lines:
-        if len(line) <= 2:  
+        if len(line.strip()) == 0:  
             calories.append(temp_calories)
             temp_calories = 0
         else:
