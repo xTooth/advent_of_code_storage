@@ -12,7 +12,7 @@
     loss +0
 '''
 
-points_dict = {
+choises_dict = {
     'X': 0,
     'Y': 1,
     'Z': 2,
@@ -36,6 +36,6 @@ for line in lines:
     line_as_list = line.strip().split(' ')
     opponents_choise = line_as_list[0]
     own_choise = line_as_list[1]
-    total_points += points_array[points_dict[own_choise]][points_dict[opponents_choise]]
+    total_points += points_array[choises_dict[own_choise]][choises_dict[opponents_choise]]
 
 print(total_points)
