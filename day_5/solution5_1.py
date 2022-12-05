@@ -15,7 +15,7 @@ def _move_crates(
     stacks: list[list[chr]]
 ):
     for _ in range(0,amount):
-        _move_crate(
+        stacks = _move_crate(
             from_index=from_index,
             to_index=to_index,
             stacks=stacks
