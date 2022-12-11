@@ -57,46 +57,17 @@ monkeys = [
     }
 ]
 
-monkeys1 = [
-    {
-        'items': [79, 98],
-        'operation': lambda x: x * 19,
-        'test': lambda x: x % 23 == 0,
-        'pass': 2,
-        'fail': 3
-    },
-    {
-        'items': [54, 65, 75, 74],
-        'operation': lambda x: x + 6,
-        'test': lambda x: x % 19 == 0,
-        'pass': 2,
-        'fail': 0
-    },
-    {
-        'items': [79, 60, 97],
-        'operation': lambda x: x * x,
-        'test': lambda x: x % 13 == 0,
-        'pass': 1,
-        'fail': 3
-    },
-    {
-        'items': [74],
-        'operation': lambda x: x + 3,
-        'test': lambda x: x % 17 == 0,
-        'pass': 0,
-        'fail': 1
-    }
-]
-
+lcm = 17*3*7*13*2*5*19*11 # cant claim credit for this idea - thx reddit: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/
+ 
 operations = [0, 0, 0, 0, 0, 0, 0, 0]
-for i in range(0,20):
+for i in range(0,10000):
     for j in range(0,len(monkeys)):
         operations[j] += len(monkeys[j]['items'])
         while len(monkeys[j]['items']) > 0:
-            testable = int(monkeys[j]['operation'](monkeys[j]['items'].pop(0))/3)
+            testable = monkeys[j]['operation'](monkeys[j]['items'].pop(0))
             if monkeys[j]['test'](testable):
-                monkeys[monkeys[j]['pass']]['items'].append(testable)
+                monkeys[monkeys[j]['pass']]['items'].append(testable%lcm)
             else:
-                monkeys[monkeys[j]['fail']]['items'].append(testable)
+                monkeys[monkeys[j]['fail']]['items'].append(testable%lcm)
 operations.sort(reverse=True)
 print(operations[0]*operations[1])
