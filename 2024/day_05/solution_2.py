@@ -15,6 +15,8 @@ for update in updates:
     count_this = False
     count = 0
     while count < len(required_orders):
+        if count < len(required_orders):
+            count = 0
         for rule in required_orders:
             index_map = {update[i]: i for i in range(len(update))}
             if rule[0] in index_map and rule[1] in index_map:
@@ -24,9 +26,13 @@ for update in updates:
                     index_map[rule[0]] = index_map[rule[1]]
                     index_map[rule[1]] = old_index
                     reverse_index_map = {y: x for x, y in index_map.items()}
-                    update = [reverse_index_map[i] for i in range(0, len(update))]
+                    update = [
+                        reverse_index_map[i] for i in range(0, len(update))
+                        ]
                 else:
                     count += 1
+            else:
+                count += 1
     if count_this:
         sum += update[int(len(update)/2)]
 print(sum)
