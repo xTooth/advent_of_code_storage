@@ -55,6 +55,7 @@ guard_pos = (0, 0)
 guard_dir = (0, 0)
 obstacles: set[tuple[int, int]] = set()
 route: set[tuple[int, int, int, int]] = set()  # (y, x, dir_y, dir_x)
+visited: set[tuple[int, int]] = set()
 for y in range(len(map)):
     for x in range(len(map[0])):
         if '^' in map[y][x]:
@@ -78,12 +79,10 @@ for y in range(len(map)):
             route.add((y, x, 0, 1))
             break
 
-# check if correct answer allows for blocks placed
-# in same position but "later in the loop" (different collision ange)
-test = []
 
 # move guard
 while (guard_pos[0] < len(map) and guard_pos[1] < len(map[0])):
+    visited.add(guard_pos)
     new_pos_x = guard_pos[1] + guard_dir[1]
     new_pos_y = guard_pos[0] + guard_dir[0]
     if not is_within_map_bounds(new_pos_y, new_pos_x, map):
@@ -93,20 +92,38 @@ while (guard_pos[0] < len(map) and guard_pos[1] < len(map[0])):
     else:
         guard_pos = (new_pos_y, new_pos_x)
         temp_map = deepcopy(map)
+        route.add((guard_pos[0], guard_pos[1], guard_dir[0], guard_dir[1]))
+        temp_obstacle_y = new_pos_y + guard_dir[0]
+        temp_obstacle_x = new_pos_x + guard_dir[1]
         if is_within_map_bounds(
-            new_pos_y + guard_dir[0],
-            new_pos_x + guard_dir[1],
+            temp_obstacle_y,
+            temp_obstacle_x,
             map
         ):
-            temp_map[new_pos_y + guard_dir[0]][new_pos_x + guard_dir[1]] = '#'
+            temp_map[temp_obstacle_y][temp_obstacle_x] = '#'
 
-        if can_cause_loop(
-            deepcopy(guard_pos),
-            guard_dir,
-            temp_map,
-            deepcopy(route)
+        if (
+            (temp_obstacle_y, temp_obstacle_x) not in visited
+            and can_cause_loop(
+                    deepcopy(guard_pos),
+                    guard_dir,
+                    temp_map,
+                    deepcopy(route)
+                )
         ):
-            obstacles.add(guard_pos)
-            test.append(guard_pos)
-print(len(test))  # 1398
-print(len(obstacles))  # 1372
+            obstacles.add((
+                temp_obstacle_y,
+                temp_obstacle_x
+            ))
+print(obstacles)
+print(len(obstacles))  # 1284 - wrong answer.
+
+'''
+Test input obstacles:
+    6,3
+    7,6
+    7,7
+    8,1
+    8,3
+    9,7
+'''
