@@ -99,22 +99,20 @@ while is_within_map_bounds(guard_pos[0], guard_pos[1], map):
             temp_obstacle_y,
             temp_obstacle_x,
             map
-        ):
+        ) and (temp_obstacle_y, temp_obstacle_x) not in visited:
             temp_map[temp_obstacle_y][temp_obstacle_x] = '#'
-
-        if (
-            (temp_obstacle_y, temp_obstacle_x) not in visited
-            and can_cause_loop(
-                    deepcopy(guard_pos),
-                    guard_dir,
-                    temp_map,
-                    deepcopy(route)
+            if (
+                can_cause_loop(
+                        deepcopy(guard_pos),
+                        guard_dir,
+                        temp_map,
+                        deepcopy(route)
                 )
-        ):
-            obstacles.add((
-                temp_obstacle_y,
-                temp_obstacle_x
-            ))
+            ):
+                obstacles.add((
+                    temp_obstacle_y,
+                    temp_obstacle_x
+                ))
 print(obstacles)
 print(len(obstacles))  # 1284 - wrong answer.
 
