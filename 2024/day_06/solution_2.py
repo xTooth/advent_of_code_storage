@@ -81,7 +81,7 @@ for y in range(len(map)):
 
 
 # move guard
-while (guard_pos[0] < len(map) and guard_pos[1] < len(map[0])):
+while is_within_map_bounds(guard_pos[0], guard_pos[1], map):
     visited.add(guard_pos)
     new_pos_x = guard_pos[1] + guard_dir[1]
     new_pos_y = guard_pos[0] + guard_dir[0]
