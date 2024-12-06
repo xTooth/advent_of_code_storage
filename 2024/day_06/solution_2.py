@@ -90,17 +90,16 @@ while is_within_map_bounds(guard_pos[0], guard_pos[1], map):
     if map[new_pos_y][new_pos_x] == '#':
         guard_dir = get_dir(guard_dir[0], guard_dir[1])
     else:
-        guard_pos = (new_pos_y, new_pos_x)
+
         temp_map = deepcopy(map)
         route.add((guard_pos[0], guard_pos[1], guard_dir[0], guard_dir[1]))
-        temp_obstacle_y = new_pos_y + guard_dir[0]
-        temp_obstacle_x = new_pos_x + guard_dir[1]
+
         if is_within_map_bounds(
-            temp_obstacle_y,
-            temp_obstacle_x,
+            new_pos_y,
+            new_pos_x,
             map
-        ) and (temp_obstacle_y, temp_obstacle_x) not in visited:
-            temp_map[temp_obstacle_y][temp_obstacle_x] = '#'
+        ) and (new_pos_y, new_pos_x) not in visited:
+            temp_map[new_pos_y][new_pos_x] = '#'
             if (
                 can_cause_loop(
                         deepcopy(guard_pos),
@@ -110,11 +109,12 @@ while is_within_map_bounds(guard_pos[0], guard_pos[1], map):
                 )
             ):
                 obstacles.add((
-                    temp_obstacle_y,
-                    temp_obstacle_x
+                    new_pos_y,
+                    new_pos_x
                 ))
+        guard_pos = (new_pos_y, new_pos_x)
 print(obstacles)
-print(len(obstacles))  # 1284 - wrong answer.
+print(len(obstacles))
 
 '''
 Test input obstacles:
