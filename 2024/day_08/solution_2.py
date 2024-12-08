@@ -51,7 +51,7 @@ ans = set()
 
 for char, locations in location_dict.items():
     i = 0
-    temp = set(locations)
+    temp = set(locations) if len(locations) > 1 else set()
     for i in range(len(locations)-1):
         for ii in range(i+1, len(locations)):
             temp.update(
