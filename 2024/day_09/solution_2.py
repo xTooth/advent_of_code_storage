@@ -2,31 +2,16 @@ file = open('input.txt', 'r')
 lines = file.readlines()
 
 # read input
-number_of_elements_map = {}
 space = []
 number = 0
 for x in range(len(lines[0])):
     if x % 2 == 0:
         if int(lines[0][x]) > 0:
-            space += [number for i in range(int(lines[0][x]))]
-            number_of_elements_map[number] = int(lines[0][x])
+            space += [number for i in range(int(lines[0][x]))]   
         number += 1
     else:
         if int(lines[0][x]) > 0:
             space += ['.' for i in range(int(lines[0][x]))]
-
-# find index and size of empty space
-x = 0
-empty_space_index_to_size = {}
-while x < len(space):
-    if space[x] == '.':
-        index = x
-        size = 0
-        while space[x] == '.':
-            size += 1
-            x += 1
-        empty_space_index_to_size[index] = size
-    x += 1
 
 # attempt to fill empty space
 y = len(space) - 1
@@ -34,26 +19,28 @@ while y >= 0:
     if space[y] == '.':
         y -= 1
     else:
-        amount_of_space_required = number_of_elements_map[space[y]]
+        amount_of_space_required = space.count(space[y])
         adjusted = False
+        start_index = 0
         size = 0
-        index = y
-        for key, val in empty_space_index_to_size.items():
-            if val >= amount_of_space_required and key < index:
-                adjusted = True
-                index = key
-                size = val
+
+        for i in range(y):
+            if space[i] == '.':
+                size += 1
+                if size == 1:
+                    start_index = i
+                if size == amount_of_space_required:
+                    break
+            else:
+                size = 0
+
         if size != 0:
-            del empty_space_index_to_size[index]
-            empty_space_index_to_size[index + amount_of_space_required] = size - amount_of_space_required  # NOQA E501
-            char = space[y]
-            while space[y] == char:
-                space[index] = space[y]
+            for i in range(amount_of_space_required):
+                space[start_index] = space[y]
                 space[y] = '.'
                 y -= 1
-                index += 1
-
-        if not adjusted:
+                start_index += 1
+        else:
             # skip rest of particular value
             y -= amount_of_space_required
 
