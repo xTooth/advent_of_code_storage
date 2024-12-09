@@ -23,3 +23,6 @@ for number in left_list:
     totals += number * appearances.get(number, 0)
 
 print(totals)
+
+# a stupid but fun oneline version
+print(sum([number * [int(line.split()[1]) for line in open('input.txt', 'r').readlines()].count(number) for number in [int(line.split()[0]) for line in open('input.txt', 'r').readlines()]]))  # noqa E501

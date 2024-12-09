@@ -17,3 +17,6 @@ for x in range(0, len(left_list)):
     total += abs(left_list[x] - right_list[x])
 
 print(total)
+
+# this is both stupid and pointless - but fun. the hole in one solution
+print(sum([abs(value - sorted([int(line.split()[1]) for line in open('input.txt', 'r').readlines()])[index]) for index, value in enumerate(sorted([int(line.split()[0]) for line in open('input.txt', 'r').readlines()]))]))  # noqa E501
