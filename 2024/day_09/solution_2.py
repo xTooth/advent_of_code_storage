@@ -36,24 +36,26 @@ while y >= 0:
     else:
         amount_of_space_required = number_of_elements_map[space[y]]
         adjusted = False
+        size = 0
+        index = y
         for key, val in empty_space_index_to_size.items():
-            if val >= amount_of_space_required and key < y:
+            if val >= amount_of_space_required and key < index:
                 adjusted = True
                 index = key
                 size = val
-                del empty_space_index_to_size[index]
-                empty_space_index_to_size[index + amount_of_space_required] = val - amount_of_space_required
-                char = space[y]
-                while space[y] == char:
-                    space[index] = space[y]
-                    space[y] = '.'
-                    y -= 1
-                    index += 1
-                break
+        if size != 0:
+            del empty_space_index_to_size[index]
+            empty_space_index_to_size[index + amount_of_space_required] = size - amount_of_space_required  # NOQA E501
+            char = space[y]
+            while space[y] == char:
+                space[index] = space[y]
+                space[y] = '.'
+                y -= 1
+                index += 1
+
         if not adjusted:
             # skip rest of particular value
             y -= amount_of_space_required
-
 
 # count sum
 sum = 0
