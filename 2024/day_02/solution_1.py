@@ -18,3 +18,7 @@ for line in lines:
     ):
         total_ok_reports += 1
 print(total_ok_reports)
+
+
+# this is truly awful
+print(sum([1 for line in open('input.txt', 'r').readlines() if all(int(line.split()[i]) - int(line.split()[i + 1]) >= 1 and int(line.split()[i]) - int(line.split()[i + 1]) <= 3 for i in range(len(line.split())-1)) or all(int(line.split()[i + 1]) - int(line.split()[i]) >= 1 and int(line.split()[i + 1]) - int(line.split()[i]) <= 3 for i in range(len(line.split())-1))]))  # noqa E501
