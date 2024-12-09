@@ -7,7 +7,7 @@ number = 0
 for x in range(len(lines[0])):
     if x % 2 == 0:
         if int(lines[0][x]) > 0:
-            space += [number for i in range(int(lines[0][x]))]   
+            space += [number for i in range(int(lines[0][x]))]
         number += 1
     else:
         if int(lines[0][x]) > 0:
@@ -19,6 +19,8 @@ while y >= 0:
     if space[y] == '.':
         y -= 1
     else:
+        # a given number can only exist in one group
+        # -> count returns the size of the group
         amount_of_space_required = space.count(space[y])
         adjusted = False
         start_index = 0
