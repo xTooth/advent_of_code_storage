@@ -10,7 +10,6 @@ for y, line in enumerate(lines):
         if int(char) == 9:
             hilltops.append((y, x))
 
-print(map)
 ans = 0
 
 moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
