@@ -26,7 +26,7 @@ for y, row in enumerate(map):
                         if 0 <= pos_y < len(map) and 0 <= pos_x < len(row):
                             if map[pos_y][pos_x] != char:
                                 fence += 1
-                            elif (pos_y, pos_x) not in visited and map[pos_y][pos_x] == char:
+                            elif (pos_y, pos_x) not in visited and map[pos_y][pos_x] == char:  # noqa E501
                                 queue.append((pos_y, pos_x))
                         else:
                             fence += 1

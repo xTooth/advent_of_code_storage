@@ -9,22 +9,22 @@ def count_corners(pos, char, map):
     pos_y = pos[0]
     pos_x = pos[1]
     # outside corners
-    if map.get((pos_y, pos_x + 1), '_') != char and map.get((pos_y + 1, pos_x), '_') != char:
+    if map.get((pos_y, pos_x + 1), '_') != char and map.get((pos_y + 1, pos_x), '_') != char:  # noqa E501
         corners += 1
-    if map.get((pos_y, pos_x + 1), '_') != char and map.get((pos_y - 1, pos_x), '_') != char:
+    if map.get((pos_y, pos_x + 1), '_') != char and map.get((pos_y - 1, pos_x), '_') != char:  # noqa E501
         corners += 1
-    if map.get((pos_y, pos_x - 1), '_') != char and map.get((pos_y + 1, pos_x), '_') != char:
+    if map.get((pos_y, pos_x - 1), '_') != char and map.get((pos_y + 1, pos_x), '_') != char:  # noqa E501
         corners += 1
-    if map.get((pos_y, pos_x - 1), '_') != char and map.get((pos_y - 1, pos_x), '_') != char:
+    if map.get((pos_y, pos_x - 1), '_') != char and map.get((pos_y - 1, pos_x), '_') != char:  # noqa E501
         corners += 1
     # inside corners
-    if map.get((pos_y, pos_x + 1), '_') == char and map.get((pos_y + 1, pos_x), '_') == char and map.get((pos_y + 1, pos_x + 1), '_') != char:
+    if map.get((pos_y, pos_x + 1), '_') == char and map.get((pos_y + 1, pos_x), '_') == char and map.get((pos_y + 1, pos_x + 1), '_') != char:  # noqa E501
         corners += 1
-    if map.get((pos_y, pos_x + 1), '_') == char and map.get((pos_y - 1, pos_x), '_') == char and map.get((pos_y - 1, pos_x + 1), '_') != char:
+    if map.get((pos_y, pos_x + 1), '_') == char and map.get((pos_y - 1, pos_x), '_') == char and map.get((pos_y - 1, pos_x + 1), '_') != char:  # noqa E501
         corners += 1
-    if map.get((pos_y, pos_x - 1), '_') == char and map.get((pos_y + 1, pos_x), '_') == char and map.get((pos_y + 1, pos_x - 1), '_') != char:
+    if map.get((pos_y, pos_x - 1), '_') == char and map.get((pos_y + 1, pos_x), '_') == char and map.get((pos_y + 1, pos_x - 1), '_') != char:  # noqa E501
         corners += 1
-    if map.get((pos_y, pos_x - 1), '_') == char and map.get((pos_y - 1, pos_x), '_') == char and map.get((pos_y - 1, pos_x - 1), '_') != char:
+    if map.get((pos_y, pos_x - 1), '_') == char and map.get((pos_y - 1, pos_x), '_') == char and map.get((pos_y - 1, pos_x - 1), '_') != char:  # noqa E501
         corners += 1
     return corners
 
@@ -56,7 +56,7 @@ for y, row in enumerate(map):
                         pos_y = direction[0] + pos[0]
                         pos_x = direction[1] + pos[1]
                         if 0 <= pos_y < len(map) and 0 <= pos_x < len(row):
-                            if (pos_y, pos_x) not in visited and map[pos_y][pos_x] == char:
+                            if (pos_y, pos_x) not in visited and map[pos_y][pos_x] == char:  # noqa E501
                                 queue.append((pos_y, pos_x))
 
             costs[(y, x)] = (size, corners)
